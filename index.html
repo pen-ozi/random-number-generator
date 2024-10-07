@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1,000,000桁の乱数生成</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            background-color: #f0f4f8;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        p {
+            color: #666;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 300px;
+            font-size: 14px;
+            padding: 10px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            resize: none;
+            margin-top: 20px;
+            color: #333;
+            font-family: 'Courier New', Courier, monospace;
+        }
+
+        button {
+            margin-top: 15px;
+            padding: 12px 25px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0px 4px 6px rgba(0, 123, 255, 0.2);
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+            box-shadow: 0px 6px 10px rgba(0, 86, 179, 0.3);
+        }
+
+        button:active {
+            background-color: #004494;
+            box-shadow: 0px 3px 6px rgba(0, 68, 148, 0.2);
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 0.9em;
+            color: #999;
+        }
+
+        .notification {
+            display: none;
+            margin-top: 10px;
+            color: #28a745;
+            font-size: 1em;
+        }
+    </style>
+</head>
+<body>
+
+<h1>1,000,000桁の乱数生成</h1>
+<p>下のボタンを押して乱数を生成し、コピーできます。</p>
+
+<textarea id="randomNumber" readonly></textarea><br>
+<button onclick="generateRandomNumber()">乱数を生成する</button>
+<button onclick="copyToClipboard()">コピー</button>
+
+<p class="notification" id="notification">乱数をコピーしました！</p>
+
+<footer>
+    © 2024 pen-ozi
+</footer>
+
+<script>
+    function generateRandomNumber() {
+        let randomNumber = '';
+        for (let i = 0; i < 1000000; i++) {
+            randomNumber += Math.floor(Math.random() * 10);
+        }
+        document.getElementById('randomNumber').value = randomNumber;
+    }
+
+    function copyToClipboard() {
+        const textarea = document.getElementById('randomNumber');
+        textarea.select();
+        textarea.setSelectionRange(0, 99999);  // モバイル対応
+        document.execCommand('copy');
+
+        // コピーが成功したら通知を表示
+        const notification = document.getElementById('notification');
+        notification.style.display = 'block';
+        
+        // 3秒後に通知を非表示にする
+        setTimeout(() => {
+            notification.style.display = 'none';
+        }, 3000);
+    }
+</script>
+
+</body>
+</html>
